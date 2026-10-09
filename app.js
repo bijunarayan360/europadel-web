@@ -380,7 +380,7 @@ if(page === 'book'){
   }
   function all(){ renderAct(); renderDates(); renderSlots(); renderCourts(); renderExtras(); renderSummary(); }
   all();
-  var sel = $('#dates [aria-pressed="true"]'); if(sel) sel.scrollIntoView({block:'nearest', inline:'nearest'});
+  var sel = $('#dates [aria-pressed="true"]'); if(sel){ var dc = $('#dates'); dc.scrollLeft = Math.max(0, sel.offsetLeft - dc.offsetLeft - 8); }
 
   $$('.choice').forEach(function(c){ c.addEventListener('click', function(){ st.act = c.getAttribute('data-act'); if(st.act !== 'coaching') st.sport = st.act; all(); }); });
   $('#coachSport').addEventListener('click', function(e){ var b = e.target.closest('button'); if(!b) return; st.sport = b.getAttribute('data-v'); all(); });

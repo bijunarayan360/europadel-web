@@ -823,3 +823,82 @@ button.btn{font-family:inherit; border:0; cursor:pointer}
 .admin section.ap-view{padding:0; display:flex; flex-direction:column; gap:20px}
 .admin section.ap-view[hidden]{display:none}
 .admin section.gate{padding:24px 16px}
+
+/* Oct 9: olive menu bar on every page including the homepage; new photo framing */
+.hero .nav{background:var(--olive); border-bottom:0}
+
+/* Oct 9 (2): colour + framing requests */
+.promise .quote em{color:var(--apricot-deep)}
+.app-title h1 em{color:var(--apricot-deep)}
+.page[data-page="club"] .promise::after{background:linear-gradient(90deg, rgba(24,29,15,.86) 0%, rgba(24,29,15,.72) 55%, rgba(24,29,15,.45) 100%)}
+
+/* Oct 9 (3): every italic heading word in deep apricot */
+.hero h1 em, .hero.sub h1 em{color:var(--apricot-deep)}
+.cta-band h2 em, .fresh h2 em, .fresh-grid b em, .auth > figure figcaption em, .space h3 em, .way h3 em, .card h3 em, .done h1 em, .tier h3 em{color:var(--apricot-deep)}
+
+/* booking page cover photo */
+.page[data-page="book"] .hero.sub .hero-body{padding:clamp(48px, 6vw, 80px) var(--pad) clamp(56px, 7vw, 90px)}
+.page[data-page="book"] .hero .btns:empty{display:none}
+
+/* PHOTO FRAMING: keep faces and action in view (generated from face positions) */
+img[src$="booking-hero.jpg"]{object-position:45% 0% !important}
+img[src$="cafe.jpg"]{object-position:34% 0% !important}
+img[src$="card.jpg"]{object-position:50% 50% !important}
+img[src$="changing.jpg"]{object-position:50% 50% !important}
+img[src$="club-hall.jpg"]{object-position:78% 23% !important}
+img[src$="club-new.jpg"]{object-position:45% 50% !important}
+img[src$="club.jpg"]{object-position:29% 17% !important}
+img[src$="coach-1to1.jpg"]{object-position:53% 2% !important}
+img[src$="coaching-hero.jpg"]{object-position:41% 22% !important}
+img[src$="community.jpg"]{object-position:64% 3% !important}
+img[src$="court-orange.jpg"]{object-position:50% 55% !important}
+img[src$="hero-m.jpg"]{object-position:50% 50% !important}
+img[src$="hero.jpg"]{object-position:50% 50% !important}
+img[src$="location.jpg"]{object-position:50% 40% !important}
+img[src$="lockers.jpg"]{object-position:50% 50% !important}
+img[src$="m1.jpg"]{object-position:50% 30% !important}
+img[src$="m2.jpg"]{object-position:50% 40% !important}
+img[src$="m3.jpg"]{object-position:50% 40% !important}
+img[src$="padel-g1.jpg"]{object-position:53% 19% !important}
+img[src$="padel-g2.jpg"]{object-position:49% 13% !important}
+img[src$="padel-g3.jpg"]{object-position:29% 16% !important}
+img[src$="padel.jpg"]{object-position:42% 26% !important}
+img[src$="pickle-play.jpg"]{object-position:44% 2% !important}
+img[src$="pickle.jpg"]{object-position:49% 8% !important}
+img[src$="price-hero.jpg"]{object-position:47% 13% !important}
+img[src$="promise.jpg"]{object-position:50% 60% !important}
+img[src$="proshop.jpg"]{object-position:50% 50% !important}
+/* END PHOTO FRAMING */
+
+/* cover photos start below the solid menu bar, so nothing is hidden behind it */
+.hero > picture{top:var(--navh, 104px) !important; bottom:0; height:auto !important}
+.hero > picture img{height:100% !important}
+.hero{--navh:104px}
+@media (max-width:760px){ .hero{--navh:80px} }
+/* pickleball cover: headline on one line */
+.page[data-page="pickleball"] .hero h1 em{display:inline}
+@media (min-width:761px){ .page[data-page="pickleball"] .hero h1{white-space:nowrap; font-size:clamp(40px, 5.2vw, 80px)} }
+@media (max-width:760px){ .page[data-page="pickleball"] .hero h1{font-size:clamp(26px, 7.4vw, 40px); white-space:nowrap} }
+
+/* homepage sport cards: identical boxes, one-line titles at the same size */
+#sports .cards{align-items:stretch}
+#sports .card{container-type:inline-size}
+#sports .card h3{white-space:nowrap; font-size:clamp(17px, 6.1cqi, 40px)}
+#sports .card h3 em{display:inline}
+#sports .card img{height:300px}
+@media (max-width:760px){ #sports .card img{height:220px} }
+/* booking cover: taller so her head is fully visible */
+.page[data-page="book"] .hero.sub .hero-body{padding:clamp(80px, 9vw, 130px) var(--pad) clamp(80px, 9vw, 120px)}
+#sports .cards{grid-auto-rows:1fr}
+#sports .card .foot{flex-direction:column; align-items:flex-start; gap:18px}
+
+/* homepage green band: continuous ticker (the whole line moves together) */
+.strip{display:block; overflow:hidden; padding:24px 0; white-space:nowrap}
+.strip-track{display:flex; width:max-content; animation:stripMove 38s linear infinite}
+.strip-group{display:flex; align-items:center; gap:30px; padding-right:30px; flex:none}
+.strip:hover .strip-track{animation-play-state:paused}
+@keyframes stripMove{from{transform:translateX(0)} to{transform:translateX(-25%)}}
+@media (max-width:760px){ .strip{padding:18px 0} .strip-group{gap:16px; padding-right:16px} .strip-track{animation-duration:26s} }
+@media (prefers-reduced-motion: reduce){ .strip-track{animation:none} .strip{display:flex; justify-content:center} .strip-group[aria-hidden]{display:none} .strip{white-space:normal} }
+/* homepage cover: "A place to belong." in white */
+.page[data-page="home"] .hero h1 em{color:var(--white)}
