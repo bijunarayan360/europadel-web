@@ -1,9 +1,6 @@
-/* Europadel website settings
-   ---------------------------------------------------------------
-   api: paste the Google Apps Script "Web app" URL here to switch the
-        website from preview mode to LIVE bookings, e.g.
-        api: 'https://script.google.com/macros/s/AKfy..../exec'
-   Leave it empty ('') and the site runs as a preview with demo data. */
+/* Europadel website settings — LIVE
+   api: the Google Apps Script web app URL (bookings are recorded in the Europadel Bookings sheet).
+   Set api to '' to switch back to preview mode with demo data. */
 window.EP_CONFIG = {
-  api: ''
+  api: 'https://script.google.com/macros/s/AKfycbxTBWOmSJ0rWfvaf20fV63WiA_r6dhgbtLhze2dDcQOzWzfg9AmiL3Sn31p4FMU0Gm66g/exec'
 };
