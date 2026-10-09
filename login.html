@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Login · Europadel</title>
+<meta name="description" content="Sign in to Europadel with Google or your email, or create a new member account.">
+<meta name="theme-color" content="#4B5733">
+<link rel="icon" type="image/png" sizes="64x64" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/touch.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="page " data-page="login">
+<header class="nav solid" id="nav">
+    <a class="logo" href="index.html" aria-label="Europadel home"><img src="img/crest-gold.png" alt="Europadel"></a>
+    <div class="nav-right">
+      <div class="nav-actions">
+        <a class="nav-login" href="login.html" data-auth-link><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>Login</span></a>
+        <a class="btn" href="book.html">Book a Court</a>
+      </div>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><svg class="i-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="i-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <ul id="menu">
+        <li class="dd"><a class="top" href="padel.html">Padel<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></a><button class="dd-btn" type="button" aria-expanded="false" aria-label="Show Padel links"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></button><div class="dd-panel"><a href="book.html#padel"><b>Book a padel court</b><small>4 indoor courts, 60, 90 or 120 minutes</small></a><a href="coaching.html"><b>Padel coaching</b><small>Private, duo and group sessions</small></a><a href="padel.html#basics"><b>New to padel?</b><small>The four rules you need to know</small></a></div></li><li class="dd"><a class="top" href="pickleball.html">Pickleball<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></a><button class="dd-btn" type="button" aria-expanded="false" aria-label="Show Pickleball links"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></button><div class="dd-panel"><a href="book.html#pickleball"><b>Book a pickleball court</b><small>5 climate-controlled courts</small></a><a href="coaching.html"><b>Pickleball coaching</b><small>Learn the game from day one</small></a><a href="pickleball.html#basics"><b>How to play</b><small>Serve, bounce, kitchen, score</small></a></div></li><li class="dd"><a class="top" href="coaching.html">Coaching<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></a><button class="dd-btn" type="button" aria-expanded="false" aria-label="Show Coaching links"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></button><div class="dd-panel"><a href="book.html#coaching"><b>Book a session</b><small>Padel or pickleball, 60 minutes</small></a><a href="coaching.html#sessions"><b>Session types</b><small>Private, duo, group and more</small></a><a href="pricing.html#coaching"><b>Coaching prices</b><small>Single sessions and packages</small></a></div></li><li class="dd"><a class="top" href="pricing.html">Pricing<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></a><button class="dd-btn" type="button" aria-expanded="false" aria-label="Show Pricing links"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></button><div class="dd-panel"><a href="pricing.html#walkin"><b>Walk-in</b><small>Court rates, peak and off-peak</small></a><a href="pricing.html#membership"><b>Membership</b><small>Standard, Platinum, Business Club</small></a><a href="pricing.html#coaching"><b>Coaching</b><small>Single sessions and packages</small></a></div></li><li class="dd"><a class="top" href="membership.html">Membership<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></a><button class="dd-btn" type="button" aria-expanded="false" aria-label="Show Membership links"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></button><div class="dd-panel"><a href="membership.html#plans"><b>Membership plans</b><small>Compare the three tiers</small></a><a href="membership.html#join"><b>How to join</b><small>Four steps to your card</small></a><a href="membership.html#interest"><b>Register your interest</b><small>Hear first about plans and events</small></a><a href="membership.html#faq"><b>Questions</b><small>Pausing, guests and more</small></a></div></li><li class="dd"><a class="top" href="club.html">Club<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></a><button class="dd-btn" type="button" aria-expanded="false" aria-label="Show Club links"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg></button><div class="dd-panel"><a href="club.html#spaces"><b>The spaces</b><small>Courts, café, pro shop, lockers</small></a><a href="club.html#cafe"><b>The café</b><small>Coffee, fresh bites, courtside lounge</small></a><a href="club.html#culture"><b>Culture and etiquette</b><small>How we play together</small></a><a href="club.html#visit"><b>Visit us</b><small>Hours, address and directions</small></a></div></li><li class="m-only"><a href="login.html" data-auth-link>Login</a></li><li class="m-only cta"><a href="book.html">Book a Court</a></li>
+      </ul>
+    </div>
+  </header>
+<div class="demo-bar"><b>Preview</b>Bookings, sign-in and payments on this preview are simulated. No money is taken.</div>
+<main class="app"><div class="wrap"><div class="auth">
+  <figure><img src="img/m3.jpg" alt="Players gathering in the café after games"><figcaption>Your game. <em>Your community.</em></figcaption></figure>
+  <div>
+    <div class="app-title" style="margin-bottom:28px"><p class="eyebrow">Members</p><h1 id="authTitle">Welcome <em>back.</em></h1><p id="authLead">Sign in to book courts, manage your membership and see your bookings.</p></div>
+    <div class="box">
+      <div class="tabs" role="tablist" aria-label="Sign in or create account">
+        <button type="button" role="tab" id="tab-signin" aria-controls="signin" aria-selected="true">Sign in</button>
+        <button type="button" role="tab" id="tab-create" aria-controls="create" aria-selected="false">Create account</button>
+      </div>
+      <button class="btn btn-google btn-block" type="button" id="googleBtn"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.9 6.1C12.5 13.6 17.8 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.6c0-1.6-.1-3.1-.4-4.6H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.3 5.7c4.3-4 7-9.8 7-17z"/><path fill="#FBBC05" d="M10.5 28.6A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.8-4.6l-7.9-6.1A24 24 0 0 0 0 24c0 3.9.9 7.5 2.6 10.7l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.3-5.7c-2.2 1.5-5 2.3-8.6 2.3-6.2 0-11.5-4.2-13.4-9.9l-7.9 6.1C6.6 42.6 14.6 48 24 48z"/></svg><span>Continue with Google</span></button>
+      <p class="or">or with email</p>
+      <form class="form" id="signin" role="tabpanel" aria-labelledby="tab-signin" novalidate>
+        <div class="field"><label for="si-email">Email</label><input id="si-email" type="email" autocomplete="email" placeholder="you@example.com" required><span class="err"></span></div>
+        <div class="field"><label for="si-pass">Password</label><input id="si-pass" type="password" autocomplete="current-password" placeholder="At least 8 characters" required><span class="err"></span></div>
+        <button class="btn btn-navy btn-block" type="submit">Sign In</button>
+        <p class="fine" style="margin:0;text-align:center">New here? <button class="txt-btn" type="button" data-goto="create">Create an account</button></p>
+      </form>
+      <form class="form" id="create" role="tabpanel" aria-labelledby="tab-create" novalidate hidden>
+        <div class="row2">
+          <div class="field"><label for="cr-first">First name</label><input id="cr-first" autocomplete="given-name" required><span class="err"></span></div>
+          <div class="field"><label for="cr-last">Last name</label><input id="cr-last" autocomplete="family-name" required><span class="err"></span></div>
+        </div>
+        <div class="field"><label for="cr-email">Email</label><input id="cr-email" type="email" autocomplete="email" placeholder="you@example.com" required><span class="err"></span></div>
+        <div class="field"><label for="cr-phone">WhatsApp number</label><input id="cr-phone" type="tel" autocomplete="tel" placeholder="+971 50 123 4567" required><span class="err"></span></div>
+        <div class="field"><label for="cr-sport">I mostly play</label><select id="cr-sport"><option>Padel</option><option>Pickleball</option><option>Both</option><option>I'm new to both</option></select></div>
+        <div class="field"><label for="cr-pass">Password</label><input id="cr-pass" type="password" autocomplete="new-password" placeholder="At least 8 characters" required><span class="err"></span></div>
+        <button class="btn btn-navy btn-block" type="submit">Create Account</button>
+        <p class="fine" style="margin:0">By creating an account you agree to the club's Terms and Privacy Policy.</p>
+      </form>
+    </div>
+    <p class="fine" style="text-align:center;margin-top:20px">Just want to play? <a class="link" id="guestLink" href="book.html">Book as a guest <span aria-hidden="true">→</span></a></p>
+  </div>
+</div>
+<div class="modal" id="gModal" hidden role="dialog" aria-modal="true" aria-labelledby="gTitle">
+  <form class="sheet" id="gForm" novalidate>
+    <div style="display:flex;gap:12px;align-items:center"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.9 6.1C12.5 13.6 17.8 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.6c0-1.6-.1-3.1-.4-4.6H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.3 5.7c4.3-4 7-9.8 7-17z"/><path fill="#FBBC05" d="M10.5 28.6A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.8-4.6l-7.9-6.1A24 24 0 0 0 0 24c0 3.9.9 7.5 2.6 10.7l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.3-5.7c-2.2 1.5-5 2.3-8.6 2.3-6.2 0-11.5-4.2-13.4-9.9l-7.9 6.1C6.6 42.6 14.6 48 24 48z"/></svg><h3 id="gTitle" style="font-size:28px">Continue with Google</h3></div>
+    <p>On the live site, this opens Google's own secure sign-in window. On this preview, enter the name and Gmail address you want to test with.</p>
+    <div class="field"><label for="g-name">Name</label><input id="g-name" autocomplete="name" value="Alex Morgan"><span class="err"></span></div>
+    <div class="field"><label for="g-email">Google email</label><input id="g-email" type="email" autocomplete="email" value="alex.morgan@gmail.com"><span class="err"></span></div>
+    <div class="acts"><button class="btn btn-line" type="button" data-close>Cancel</button><button class="btn btn-navy" type="submit">Continue</button></div>
+  </form>
+</div></div></main>
+
+<footer>
+  <div class="wrap">
+    <div class="top">
+      <img src="img/logo-footer.png" alt="Europadel">
+      <div class="cols">
+        <div><strong>Explore</strong><a href="padel.html">Padel</a><a href="pickleball.html">Pickleball</a><a href="coaching.html">Coaching</a><a href="pricing.html">Pricing</a><a href="membership.html">Membership</a><a href="club.html">The Club</a></div>
+        <div><strong>Members</strong><a href="book.html">Book a court</a><a href="login.html">Login</a><a href="login.html#create">Create account</a><a href="account.html">My bookings</a><a href="policy.html">Cancellation policy</a></div>
+        <div><strong>Contact</strong><a href="tel:+971525392908">+971 52 539 2908</a><a href="mailto:Borsboom.dubai@gmail.com">Borsboom.dubai@gmail.com</a><span>DIP 1, Plot 598-389, Dubai</span></div>
+        <div><strong>Follow</strong><a href="#top">Instagram</a><a href="#top">TikTok</a><a href="#top">Facebook</a></div>
+      </div>
+    </div>
+    <div class="bottom"><span>© 2026 Europadel and Pickleball. All rights reserved.</span><span>Terms · Privacy</span></div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/971525392908" target="_blank" rel="noopener" aria-label="Chat with Europadel on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" style="color:var(--porcelain)" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
+</a>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</div>
+</body>
+</html>

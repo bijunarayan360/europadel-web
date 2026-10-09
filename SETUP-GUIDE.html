@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Europadel Booking Setup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: one reading column, numbered setup steps, then reference tables. Single light brand theme. */
+:root{
+  color-scheme:light;
+  --ivory:#F6F2EA; --paper:#FBF9F4; --line:#DDD5C5; --white:#FFFFFF;
+  --olive:#4B5733; --olive-deep:#3A4427; --sage:#E6E7D6; --blush:#EAD9CC;
+  --ink:#272B21; --body:#5E6153; --apricot:#B8674A; --gold:#C4A15A;
+  --serif:'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --sans:Manrope, 'Helvetica Neue', Arial, sans-serif;
+  --mono:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--ivory); color:var(--ink); font-family:var(--sans); font-size:16.5px; line-height:1.65; -webkit-font-smoothing:antialiased}
+header{background:var(--olive); color:#F4F1EC; padding:48px 20px 44px}
+.wrap{max-width:860px; margin:0 auto; padding-inline:20px}
+header .wrap{padding-inline:0}
+.eyebrow{font-size:12px; font-weight:600; letter-spacing:.28em; text-transform:uppercase; color:#D9C6A5; margin:0 0 14px}
+h1,h2,h3{font-family:var(--serif); font-weight:400; line-height:1.05; margin:0; text-wrap:balance}
+h1{font-size:clamp(42px, 7vw, 68px)} h1 em{color:#D9C6A5}
+header p.lead{max-width:640px; margin:18px 0 0; color:rgba(244,241,236,.88)}
+main{padding-block:40px 80px}
+h2{font-size:clamp(32px, 4.6vw, 44px); margin:56px 0 18px} h2 em{color:var(--apricot)}
+h3{font-size:26px; margin:0 0 8px}
+p{margin:0 0 14px; max-width:68ch}
+.flow{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:12px; margin:8px 0 10px}
+.flow div{background:var(--white); border:1px solid var(--line); border-radius:16px; padding:16px; font-size:14.5px; color:var(--body)}
+.flow b{display:block; color:var(--olive-deep); font-size:15px; margin-bottom:2px}
+ol.steps{list-style:none; padding:0; margin:0; counter-reset:s; display:flex; flex-direction:column; gap:16px}
+ol.steps > li{counter-increment:s; background:var(--white); border:1px solid var(--line); border-radius:20px; padding:24px 26px 22px 76px; position:relative; min-width:0}
+ol.steps > li::before{content:counter(s); position:absolute; left:24px; top:22px; width:34px; height:34px; border-radius:999px; background:var(--olive); color:#F4F1EC; font-weight:600; font-size:14px; display:flex; align-items:center; justify-content:center}
+ol.steps ul{margin:6px 0 0; padding-left:20px; color:var(--body)} ol.steps ul li{margin:4px 0}
+.who{display:inline-block; font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--apricot); margin-bottom:6px}
+code, kbd{font-family:var(--mono); font-size:.88em; background:var(--paper); border:1px solid var(--line); border-radius:6px; padding:1px 6px; overflow-wrap:anywhere}
+pre{font-family:var(--mono); font-size:13.5px; background:var(--ink); color:#F4F1EC; border-radius:14px; padding:16px 18px; overflow-x:auto; margin:10px 0 0}
+.table-wrap{overflow-x:auto; background:var(--white); border:1px solid var(--line); border-radius:18px; margin:10px 0 6px}
+table{border-collapse:collapse; width:100%; min-width:560px; font-size:14.5px}
+th, td{text-align:left; padding:12px 16px; border-bottom:1px solid var(--line); vertical-align:top}
+thead th{font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--body); background:var(--paper)}
+tbody tr:last-child > *{border-bottom:0}
+td:first-child{font-weight:600; color:var(--olive-deep); white-space:nowrap}
+.note{background:var(--sage); color:var(--olive-deep); border-radius:16px; padding:16px 20px; margin:14px 0}
+.warn{background:var(--blush); color:#7A3F2B; border-radius:16px; padding:16px 20px; margin:14px 0}
+.note p, .warn p{margin:0}
+.check{list-style:none; padding:0; margin:0; display:grid; gap:8px}
+.check li{background:var(--white); border:1px solid var(--line); border-radius:12px; padding:12px 16px 12px 44px; position:relative}
+.check li::before{content:""; position:absolute; left:16px; top:15px; width:16px; height:16px; border:1.5px solid var(--olive); border-radius:4px}
+footer{border-top:1px solid var(--line); padding:24px 20px 40px; color:var(--body); font-size:13.5px}
+@media (max-width:700px){ .flow{grid-template-columns:repeat(2, minmax(0,1fr))} ol.steps > li{padding:62px 20px 20px} ol.steps > li::before{left:20px; top:18px} }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <p class="eyebrow">Europadel · Website bookings</p>
+    <h1>Live booking <em>setup guide.</em></h1>
+    <p class="lead">How to switch the website from preview to live bookings. Every court booking, coaching session, membership and interest form is recorded in the club's Google Sheet, with live court availability and card or Apple Pay payments through Stripe.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <h2>How it <em>works.</em></h2>
+  <div class="flow">
+    <div><b>1 · Customer books</b>Picks court, time and equipment on the website.</div>
+    <div><b>2 · Court is held</b>The sheet is checked live. Taken slots can't be booked.</div>
+    <div><b>3 · Payment</b>Card or Apple Pay on Stripe, or pay at the club.</div>
+    <div><b>4 · Recorded</b>A row appears in the sheet. Reception gets an email.</div>
+  </div>
+  <p>Card payments hold the court for 30 minutes while the customer pays. If they don't finish, the court is released automatically. A checker runs every 5 minutes in the background and confirms any payment that arrived late.</p>
+
+  <h2>What you <em>need.</em></h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Item</th><th scope="col">Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Google account</td><td>The club's own account, ideally Google Workspace. It owns the sheet and the script.</td></tr>
+      <tr><td>Stripe account</td><td>Stripe is available in the UAE. Needs the trade licence and the club's bank account. Approval can take a few days.</td></tr>
+      <tr><td>Website hosting</td><td>The live domain (EuroPadel.ae) on https. Upload the website files there.</td></tr>
+      <tr><td>Files</td><td><code>Code.gs</code> (backend) and the <code>site</code> folder from the package.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Setup, <em>step by step.</em></h2>
+  <ol class="steps">
+    <li><span class="who">Club · 2 minutes</span><h3>Create the Google Sheet</h3>
+      <ul><li>Sign in to the club's Google account and open <code>sheets.google.com</code>.</li>
+      <li>Click <b>Blank spreadsheet</b> and name it <b>Europadel Bookings</b>.</li>
+      <li>Share it with reception and management as <b>Editors</b>.</li></ul></li>
+
+    <li><span class="who">Developer · 5 minutes</span><h3>Add the booking script</h3>
+      <ul><li>In the sheet, open <b>Extensions → Apps Script</b>.</li>
+      <li>Delete the sample code, paste the whole of <code>Code.gs</code>, and click <b>Save</b>.</li></ul></li>
+
+    <li><span class="who">Developer · 3 minutes</span><h3>Add the settings</h3>
+      <p>In Apps Script, open <b>Project Settings</b> (the gear icon) → <b>Script properties</b> → <b>Add script property</b>:</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th scope="col">Property</th><th scope="col">Value</th></tr></thead>
+        <tbody>
+          <tr><td>SITE_URL</td><td><code>https://europadel.ae</code> (no slash at the end)</td></tr>
+          <tr><td>STRIPE_SECRET_KEY</td><td>From Stripe → Developers → API keys. Use <code>sk_test_…</code> for testing, then <code>sk_live_…</code>. Leave it out and the site offers pay at club only.</td></tr>
+          <tr><td>NOTIFY_EMAIL</td><td>Reception's email. Gets a message for every booking and new member.</td></tr>
+          <tr><td>CUSTOMER_EMAILS</td><td><code>yes</code> to email customers a confirmation (see email limits below).</td></tr>
+          <tr><td>ADMIN_KEY</td><td>The staff password for the dashboard (<code>europadel.ae/admin.html</code>). Use a long password and share it only with staff.</td></tr>
+          <tr><td>AUTO_RELEASE_UNPAID</td><td><code>yes</code> to cancel unpaid pay-at-club bookings 15 minutes before start. Leave <code>no</code> until reception is used to marking "Paid at club".</td></tr>
+        </tbody>
+      </table></div></li>
+
+    <li><span class="who">Developer · 2 minutes</span><h3>Run setup once</h3>
+      <ul><li>In the toolbar, choose the function <b>setup</b> and click <b>Run</b>.</li>
+      <li>Google asks for permission. Choose the club account, then <b>Advanced → Go to project (unsafe) → Allow</b>. This warning appears for every private script; it's expected.</li>
+      <li>The sheet now has the tabs <b>Today, Bookings, Members, Blocks, Interest</b>, and the automatic checkers are switched on.</li></ul></li>
+
+    <li><span class="who">Developer · 2 minutes</span><h3>Publish the script as a web app</h3>
+      <ul><li><b>Deploy → New deployment</b> → type <b>Web app</b>.</li>
+      <li><b>Execute as:</b> Me. <b>Who has access:</b> Anyone.</li>
+      <li>Click <b>Deploy</b> and copy the <b>Web app URL</b> (it ends in <code>/exec</code>).</li></ul>
+      <div class="note"><p>After any later change to the code, use <b>Deploy → Manage deployments → Edit → Version: New version</b>. The URL stays the same.</p></div></li>
+
+    <li><span class="who">Developer · 1 minute</span><h3>Connect the website</h3>
+      <p>Open <code>site/config.js</code> and paste the URL:</p>
+<pre>window.EP_CONFIG = {
+  api: 'https://script.google.com/macros/s/AKfy...../exec'
+};</pre>
+      <p style="margin-top:12px">Upload the <code>site</code> folder to the hosting. The "Preview" bar disappears and bookings go live.</p></li>
+
+    <li><span class="who">Club · 10 minutes</span><h3>Switch on Apple Pay in Stripe</h3>
+      <ul><li>Stripe Dashboard → <b>Settings → Payment methods</b>: turn on <b>Cards</b>, <b>Apple Pay</b> and <b>Google Pay</b>.</li>
+      <li>Under <b>Settings → Branding</b>, add the Europadel logo and olive colour (#4B5733) so the payment page matches the site.</li></ul></li>
+
+    <li><span class="who">Everyone · 15 minutes</span><h3>Test before going live</h3>
+      <p>With the <code>sk_test_</code> key, pay with Stripe's test card <code>4242 4242 4242 4242</code>, any future expiry and any 3-digit code. Then work through the checklist below. When it all passes, swap in the <code>sk_live_</code> key.</p></li>
+  </ol>
+
+  <h2>Test <em>checklist.</em></h2>
+  <ul class="check">
+    <li>Book a padel court by card. A row appears in <b>Bookings</b> as <b>Confirmed · Card / Apple Pay (paid)</b>.</li>
+    <li>Try to book the same court and time again. It's crossed out on the website.</li>
+    <li>Start a card payment and press back on the Stripe page. The row shows <b>Expired</b> and the court is free again.</li>
+    <li>Book with "Pay at the club". The row shows <b>Confirmed · Pay at club</b>.</li>
+    <li>Add equipment. It's listed in the <b>Equipment</b> column and included in the amount.</li>
+    <li>Join a membership by card. A row appears in <b>Members</b> as <b>Active</b> with a member number.</li>
+    <li>Book as that member at a time the plan covers. The amount is AED 0 and Payment is <b>Member</b>.</li>
+    <li>Send the Register My Interest form. A row appears in <b>Interest</b>.</li>
+    <li>Reception receives the email notifications.</li>
+  </ul>
+
+  <h2>The staff <em>dashboard.</em></h2>
+  <p>Reception and management open <code>europadel.ae/admin.html</code> on any computer, tablet or phone, then enter the staff password (<code>ADMIN_KEY</code>). It isn't linked anywhere on the public site, and it reads and writes the same Google Sheet, so both always agree.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Section</th><th scope="col">What staff can do</th></tr></thead>
+    <tbody>
+      <tr><td>Day summary</td><td>Bookings, court occupancy, money paid, money still due at the club, and the rackets, paddles and balls to prepare.</td></tr>
+      <tr><td>Court grid</td><td>Every court from 6 AM to midnight, coloured by payment: paid, due at club, member, paying now, blocked. Coaching sessions have a gold edge. A red line marks the current time.</td></tr>
+      <tr><td>Manage a booking</td><td>Click it to see the customer and WhatsApp number, then mark paid at club, mark a no-show, cancel or restore.</td></tr>
+      <tr><td>Phone bookings</td><td>Click an empty space on the grid, or New booking. A double booking is refused.</td></tr>
+      <tr><td>Block a court</td><td>Close one court or all courts for maintenance, events or private hire. The website stops offering those times straight away.</td></tr>
+      <tr><td>Members</td><td>Every member with plan, renewal date and status. Change the status (activate, pause, cancel) from the list.</td></tr>
+      <tr><td>Interest</td><td>Every Register My Interest form, with a WhatsApp link to reply.</td></tr>
+    </tbody>
+  </table></div>
+  <p>The dashboard refreshes every minute on its own. Card refunds are still made in the Stripe dashboard.</p>
+
+  <h2>For <em>reception.</em></h2>
+  <p>Everything below can also be done directly in the Google Sheet, which is useful if the dashboard isn't to hand.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Task</th><th scope="col">How</th></tr></thead>
+    <tbody>
+      <tr><td>See today</td><td>Open the <b>Today</b> tab. It lists today's bookings by sport, court and time, and updates by itself.</td></tr>
+      <tr><td>Phone or walk-in booking</td><td>Add a row in <b>Bookings</b>: Date <code>2026-10-12</code>, Sport <b>Padel</b>, Activity <b>Court</b>, Start <code>18:00</code>, End <code>19:30</code>, Minutes 90, Court 2, name and WhatsApp, Status <b>Confirmed</b>, Source <b>Phone</b>. The website blocks that slot straight away.</td></tr>
+      <tr><td>Customer pays at the desk</td><td>Change Payment to <b>Paid at club</b>.</td></tr>
+      <tr><td>Cancel a booking</td><td>Set Status to <b>Cancelled</b>. The slot opens on the website. If they paid by card and cancelled more than 24 hours ahead, refund in Stripe → Payments → the payment → <b>Refund</b>, then set Payment to <b>Refunded</b>.</td></tr>
+      <tr><td>No-show</td><td>Set Status to <b>No-show</b>.</td></tr>
+      <tr><td>Close a court</td><td>Add a row in <b>Blocks</b>: Date, Sport (Padel, Pickleball or All), Court (number or All), Start, End, Reason. Leave Start and End empty to close the whole day.</td></tr>
+      <tr><td>Member pays at the desk</td><td>In <b>Members</b>, change Status from <b>Pay at club</b> to <b>Active</b> and Payment to <b>Paid at club</b>.</td></tr>
+      <tr><td>Pause or cancel a member</td><td>Set Status to <b>Paused</b> or <b>Cancelled</b>. For monthly card members, also pause or cancel the subscription in Stripe → Customers.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="warn"><p><b>Keep dates and times in the format shown</b> (<code>2026-10-12</code> and <code>18:00</code>). Don't delete or rename columns or tabs; the website reads them by name.</p></div>
+
+  <h2>Statuses at a <em>glance.</em></h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Status</th><th scope="col">Meaning</th><th scope="col">Court blocked?</th></tr></thead>
+    <tbody>
+      <tr><td>Pending payment</td><td>Customer is on the Stripe page (up to 30 minutes).</td><td>Yes, while held</td></tr>
+      <tr><td>Confirmed</td><td>Booked. Check the Payment column for paid, pay at club or member.</td><td>Yes</td></tr>
+      <tr><td>Expired</td><td>Card payment not completed. Nothing charged.</td><td>No</td></tr>
+      <tr><td>Cancelled</td><td>Cancelled by the customer or reception.</td><td>No</td></tr>
+      <tr><td>No-show</td><td>Didn't arrive.</td><td>No</td></tr>
+      <tr><td>Released (unpaid)</td><td>Pay-at-club booking released 15 minutes before start (only if switched on).</td><td>No</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Limits and <em>next steps.</em></h2>
+  <ul>
+    <li><b>Email limits:</b> Google limits how many emails a script can send each day: about 100 recipients a day on a free Gmail account and about 1,500 on Google Workspace. At 200–300 bookings a day, use Workspace, or set <code>CUSTOMER_EMAILS</code> to <code>no</code> and rely on the on-screen confirmation and Stripe's receipts.</li>
+    <li><b>Member sign-in:</b> member benefits are matched by email address and noted "check member card" in the sheet. Reception should glance at the card at check-in. Verified Google sign-in can be added as a next step.</li>
+    <li><b>My Account:</b> shows bookings made on that device. Customers message reception on WhatsApp for changes; reception updates the sheet.</li>
+    <li><b>Monthly memberships:</b> renew automatically through Stripe. A daily check marks failed payments as <b>Overdue</b>, which stops free bookings until paid.</li>
+    <li><b>Later:</b> if the club moves to dedicated booking software, the website design stays and the Stripe account can be kept.</li>
+  </ul>
+</main>
+<footer><div class="wrap">Europadel · Dubai Investment Park 1, Plot 598-389 · Prepared for the website launch, October 2026</div></footer>
+</body>
+</html>
