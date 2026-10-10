@@ -223,6 +223,34 @@ if($('#interestForm')){
   });
 }
 
+/* ---------- EARLY ACCESS (home page, above footer) ---------- */
+if($('#earlyForm')){
+  $('#earlyForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    function er(input, msg){ var f = input.closest('.field'); f.classList.toggle('bad', !!msg); f.querySelector('.err').textContent = msg || ''; return !msg; }
+    var nm = $('#ea-name'), ph = $('#ea-phone'), em = $('#ea-email');
+    var ok = er(nm, nm.value.trim().length >= 2 ? '' : 'Enter your full name.');
+    ok = er(ph, ph.value.replace(/\D/g,'').length >= 9 ? '' : 'Enter a mobile number, like +971 50 123 4567.') && ok;
+    ok = er(em, /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em.value.trim()) ? '' : 'Enter an email like name@example.com.') && ok;
+    if(!ok){ var bad = $('#earlyForm .bad input'); if(bad) bad.focus(); return; }
+    var sportIn = $('input[name="ea-sport"]:checked'), sport = sportIn ? sportIn.value : 'Both sports';
+    var free = $('#ea-free').value, area = $('#ea-area').value.trim(), news = $('#ea-news').checked;
+    var rec = {name:nm.value.trim(), email:em.value.trim(), phone:ph.value.trim()};
+    var msg = 'Usually free: ' + free + (area ? ' · Area: ' + area : '') + ' · Launch updates: ' + (news ? 'Yes' : 'No');
+    var btn = $('#earlyForm .ef-btn'), label = btn.innerHTML;
+    function thanks(){ $('#earlyBox').innerHTML = '<div class="early-done"><div class="tick"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h3>You\'re on <em>the list.</em></h3><p>Thank you, ' + esc(rec.name.split(' ')[0]) + '. We\'ll be in touch on WhatsApp or email with founding member news and early bookings.</p></div>'; }
+    if(LIVE){
+      btn.disabled = true; btn.textContent = 'Sending…'; $('#ea-err').textContent = '';
+      apiPost({action:'interest', customer:rec, interests:['Early access · founding member'], sport:sport, level:free, msg:msg}).then(function(r){
+        if(r.ok) thanks(); else { btn.disabled = false; btn.innerHTML = label; $('#ea-err').textContent = r.error || NET_ERR; }
+      }, function(){ btn.disabled = false; btn.innerHTML = label; $('#ea-err').textContent = NET_ERR; });
+      return;
+    }
+    var list = get('interest', []); list.push({first:rec.name, email:rec.email, phone:rec.phone, interests:['Early access · founding member'], sport:sport, level:free, msg:msg, at:Date.now()}); set('interest', list);
+    thanks();
+  });
+}
+
 /* ---------- LOGIN ---------- */
 if(page === 'login'){
   var showAuth = initTabs($('[role="tablist"]'), function(id){

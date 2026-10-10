@@ -902,3 +902,83 @@ img[src$="proshop.jpg"]{object-position:50% 50% !important}
 @media (prefers-reduced-motion: reduce){ .strip-track{animation:none} .strip{display:flex; justify-content:center} .strip-group[aria-hidden]{display:none} .strip{white-space:normal} }
 /* homepage cover: "A place to belong." in white */
 .page[data-page="home"] .hero h1 em{color:var(--white)}
+
+/* ===== Numbered perk cards (home café + early access) ===== */
+.perks{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; max-width:600px}
+.perks li{display:grid; grid-template-columns:auto minmax(0,1fr); gap:20px; align-items:start; background:#F3F0E9; border:1px solid #E9E4D9; border-radius:16px; padding:22px 26px; box-shadow:0 1px 2px rgba(38,48,58,.04)}
+.perks .n{font-family:var(--serif); font-size:34px; line-height:1; color:var(--olive); min-width:40px; letter-spacing:-.01em}
+.perks b{display:block; font-family:var(--sans); font-weight:600; font-size:17px; color:var(--ink); line-height:1.3}
+.perks small{display:block; margin-top:4px; font-size:14.5px; color:var(--body); line-height:1.55}
+/* café: framed photo + pill chips with icons */
+.cafe img{box-sizing:border-box; border:10px solid var(--white); border-radius:28px; box-shadow:0 30px 60px -28px rgba(38,48,58,.35), 0 0 0 1px #ECE7DD}
+.cafe .eyebrow{display:flex; align-items:center; gap:14px; color:var(--apricot-deep)}
+.cafe .eyebrow::before{content:""; width:40px; height:1px; background:currentColor}
+.cafe-chips{list-style:none; margin:4px 0 0; padding:0; display:flex; flex-wrap:wrap; gap:14px}
+.cafe-chips li{display:inline-flex; align-items:center; gap:10px; padding:12px 22px; border-radius:999px; background:#F2E8DC; color:var(--ink); font-size:16px; font-weight:500; line-height:1}
+.cafe-chips li svg{flex:none; color:var(--ink)}
+.cafe-chips li.green{background:#ECEEE2; color:var(--olive-deep)}
+.cafe-chips li.green svg{color:var(--olive)}
+@media (max-width:560px){ .cafe-chips{gap:10px} .cafe-chips li{padding:11px 16px; font-size:14.5px} .cafe img{border-width:7px} }
+
+/* ===== Early access / register interest (home, above footer) ===== */
+.early{background:var(--paper); border-top:1px solid var(--line)}
+.early .wrap{display:grid; grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr); gap:clamp(36px,6vw,90px); align-items:start}
+.early-left{display:flex; flex-direction:column; gap:24px}
+.early .eyebrow.line{display:flex; align-items:center; gap:14px; color:var(--olive-deep)}
+.early .eyebrow.line::before{content:""; width:40px; height:1px; background:currentColor}
+.early h2{font-size:clamp(42px,5vw,66px); line-height:1.02}
+.early .lead{margin:0; color:var(--body); font-size:18px; max-width:580px}
+.early-card{background:var(--white); border:1px solid #E9E4D9; border-radius:28px; padding:clamp(24px,3.5vw,48px); box-shadow:0 24px 60px -30px rgba(38,48,58,.25)}
+.early-form{display:flex; flex-direction:column; gap:24px}
+.early-form .ef-row{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px}
+.early-form .field{display:flex; flex-direction:column; gap:10px; min-width:0}
+.early-form label, .early-form legend{font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#6A6660}
+.early-form input:not([type=radio]):not([type=checkbox]), .early-form select{width:100%; box-sizing:border-box; height:58px; padding:0 20px; font:inherit; font-size:16px; color:var(--ink); background:#F3F1EC; border:1px solid #E6E1D7; border-radius:10px; -webkit-appearance:none; appearance:none}
+.early-form select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%235D6570' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 18px center; padding-right:44px}
+.early-form input::placeholder{color:#8A8780}
+.early-form input:focus, .early-form select:focus{outline:2px solid var(--olive); outline-offset:1px; background:var(--white)}
+.early-form .field.bad input{border-color:#B4452F; background:#FBF1EE}
+.early-form .err{font-size:13px; color:#B4452F; min-height:0}
+.early-form .err:empty{display:none}
+.ef-seg{border:0; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
+.ef-seg legend{padding:0; margin-bottom:10px; grid-column:1/-1}
+.ef-seg label{position:relative; text-transform:none; letter-spacing:0; font-size:inherit; color:inherit}
+.ef-seg input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer}
+.ef-seg span{display:flex; align-items:center; justify-content:center; height:54px; border:1px solid #DDD8CD; border-radius:10px; background:var(--white); font-size:15px; font-weight:600; color:var(--ink); transition:background .15s, color .15s, border-color .15s; text-align:center; padding:0 8px}
+.ef-seg input:checked + span{background:var(--olive); border-color:var(--olive); color:var(--white)}
+.ef-seg input:focus-visible + span{outline:2px solid var(--apricot-deep); outline-offset:2px}
+.ef-check{display:flex; gap:14px; align-items:flex-start; text-transform:none!important; letter-spacing:0!important; font-size:14.5px!important; font-weight:400!important; color:var(--body)!important; line-height:1.5; cursor:pointer}
+.ef-check input{width:20px; height:20px; margin:1px 0 0; accent-color:var(--olive); flex:none}
+.ef-btn{display:flex; align-items:center; justify-content:center; gap:12px; height:70px; border:0; border-radius:999px; background:var(--olive); color:var(--white); font:inherit; font-size:15px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; cursor:pointer; box-shadow:0 14px 30px -14px rgba(58,68,39,.7); transition:background .15s}
+.ef-btn:hover{background:var(--olive-deep)}
+.ef-btn[disabled]{opacity:.7; cursor:progress}
+.ef-fine{margin:-8px 0 0; text-align:center; font-size:13px; color:var(--body)}
+.ef-fine a{color:var(--apricot-deep); border-bottom:1px solid currentColor}
+.ef-err{margin:0; color:#B4452F; font-size:14px; text-align:center}
+.ef-err:empty{display:none}
+.early-done{display:flex; flex-direction:column; align-items:center; text-align:center; gap:16px; padding:40px 10px}
+.early-done .tick{width:72px; height:72px; border-radius:50%; display:grid; place-items:center; background:var(--olive); color:var(--white)}
+.early-done h3{font-size:44px}
+.early-done p{margin:0; color:var(--body); max-width:420px}
+@media (max-width:900px){ .early .wrap{grid-template-columns:minmax(0,1fr)} }
+@media (max-width:560px){
+  .early-form .ef-row{grid-template-columns:minmax(0,1fr)}
+  .ef-seg{gap:8px} .ef-seg span{font-size:13px; height:50px; white-space:nowrap; padding:0 4px}
+  .ef-btn{height:62px; font-size:13.5px; letter-spacing:.1em}
+  .perks li{padding:18px 18px; gap:14px} .perks .n{font-size:28px; min-width:32px}
+}
+
+/* ===== Legal pages + footer legal line ===== */
+.legal .lp{margin:0 0 10px; color:var(--body); font-size:15.5px; line-height:1.7}
+.legal .lp:last-child{margin-bottom:0}
+.legal .lp a, .legal .plist a{color:var(--apricot-deep); border-bottom:1px solid currentColor}
+.legal .box h2{margin-bottom:14px}
+.legal-toc ol{margin:0; padding-left:22px; columns:2; column-gap:40px; font-size:15px}
+.legal-toc li{margin:0 0 6px; break-inside:avoid}
+.legal-toc a{color:var(--ink)}
+.legal-toc a:hover{color:var(--apricot-deep)}
+.legal section.box{scroll-margin-top:110px}
+@media (max-width:640px){ .legal-toc ol{columns:1} }
+footer .bottom{gap:16px; flex-wrap:wrap}
+footer .legal-links a{color:inherit}
+footer .legal-links a:hover{color:var(--champagne)}

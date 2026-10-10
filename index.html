@@ -89,7 +89,7 @@
     <div class="text">
       <div><p class="eyebrow">The Café</p><h2>Where the match<br><em>keeps going.</em></h2></div>
       <p>Replay the best point over a flat white. Watch the next game from the lounge. Meet a new doubles partner. Our café is the heart of the club — no racket required.</p>
-      <div class="tags"><span>Coffee</span><span>Fresh bites</span><span>Courtside lounge</span></div>
+      <ul class="cafe-chips"><li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h11v6a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z"/><path d="M16 9.5h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M8.5 3.5v2M11.5 3.5v2"/></svg>Coffee</li><li class="green"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v7a2 2 0 0 0 2 2v9M11 3v7a2 2 0 0 1-2 2M9 3v6"/><path d="M17 21V3c-2 1.5-3 4-3 7v3h3"/></svg>Fresh Bites</li><li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 11V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v3"/><path d="M3 13a2 2 0 0 1 4 0v1h10v-1a2 2 0 0 1 4 0v4a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M6 18v1.5M18 18v1.5"/></svg>Courtside Lounge</li></ul>
     </div>
   </div>
 </section>
@@ -145,6 +145,40 @@
   </div>
 </section>
 
+<section class="early" id="early">
+  <div class="wrap">
+    <div class="early-left">
+      <p class="eyebrow line">Early access · Founding members</p>
+      <h2>Be first on court.<br><em>Join as an early bird.</em></h2>
+      <p class="lead">Register your interest today to unlock exclusive founding member privileges before our public launch in Dubai Investment Park 1.</p>
+      <ol class="perks "><li><span class="n">01</span><div><b>Priority Court Bookings</b><small>7-day advance booking window before general release.</small></div></li><li><span class="n">02</span><div><b>Early-Bird Launch Offers</b><small>Founding tier rates on individual bookings, coaching clinics &amp; café tab credit.</small></div></li><li><span class="n">03</span><div><b>Events &amp; Leagues Invitations</b><small>Invitations to the inaugural Europadel DIP 1 tournament and members' mixer.</small></div></li></ol>
+    </div>
+    <div class="early-card" id="earlyBox">
+      <form class="early-form" id="earlyForm" novalidate>
+        <div class="ef-row">
+          <div class="field"><label for="ea-name">Full name</label><input id="ea-name" autocomplete="name" placeholder="e.g. Alexander Ward"><span class="err" aria-live="polite"></span></div>
+          <div class="field"><label for="ea-phone">Mobile / WhatsApp</label><input id="ea-phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+971 50 000 0000"><span class="err" aria-live="polite"></span></div>
+        </div>
+        <div class="field"><label for="ea-email">Email address</label><input id="ea-email" type="email" autocomplete="email" placeholder="alexander@domain.com"><span class="err" aria-live="polite"></span></div>
+        <fieldset class="ef-seg"><legend>I want to play</legend>
+          <label><input type="radio" name="ea-sport" value="Padel"><span>Padel</span></label>
+          <label><input type="radio" name="ea-sport" value="Pickleball"><span>Pickleball</span></label>
+          <label><input type="radio" name="ea-sport" value="Both sports" checked><span>Both Sports</span></label>
+        </fieldset>
+        <div class="ef-row">
+          <div class="field"><label for="ea-free">Usually free</label><select id="ea-free">
+            <option>Early Mornings (6am – 9am)</option><option>Daytime (9am – 5pm)</option><option selected>Prime Evenings (5pm – 10pm)</option><option>Late Nights (10pm – midnight)</option><option>Weekends</option></select></div>
+          <div class="field"><label for="ea-area">Area you live in</label><input id="ea-area" autocomplete="address-level2" placeholder="e.g. Al Furjan, Dubai Marina, JVC"></div>
+        </div>
+        <label class="ef-check"><input type="checkbox" id="ea-news" checked><span>Keep me updated about Europadel launch news, early bookings and founding member perks.</span></label>
+        <button class="ef-btn" type="submit">Register My Interest <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 2.5l2.4 1.7 2.9-.1.9 2.8 2.3 1.8-.9 2.8.9 2.8-2.3 1.8-.9 2.8-2.9-.1L12 21.5l-2.4-1.7-2.9.1-.9-2.8-2.3-1.8.9-2.8-.9-2.8 2.3-1.8.9-2.8 2.9.1z"/><path d="M8.5 12.2l2.3 2.3 4.7-4.7"/></svg></button>
+        <p class="ef-fine">By registering you agree to our <a href="privacy.html">privacy policy</a>.</p>
+        <p class="ef-err" id="ea-err" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <div class="top">
@@ -156,7 +190,7 @@
         <div><strong>Follow</strong><a href="#top">Instagram</a><a href="#top">TikTok</a><a href="#top">Facebook</a></div>
       </div>
     </div>
-    <div class="bottom"><span>© 2026 Europadel and Pickleball. All rights reserved.</span><span>Terms · Privacy</span></div>
+    <div class="bottom"><span>© 2026 QPADEL SPORTS &amp; RECREATIONAL CLUB LLC, trading as Europadel &amp; Pickleball. All rights reserved.</span><span class="legal-links"><a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="policy.html">Cancellation</a></span></div>
   </div>
 </footer>
 
