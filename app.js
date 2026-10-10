@@ -503,7 +503,7 @@ if(page === 'checkout'){
         view.hidden = true; done.hidden = false;
         done.innerHTML = '<div class="done"><div class="tick">' + '<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>' + '</div>' +
           '<p class="ref">Reference ' + ref + '</p><h1>' + title + '</h1>' +
-          '<p class="lead" style="text-align:center">' + (item.kind === 'membership' ? 'Your ' + P.membership[item.tier].name + ' membership is ' + (pay === 'club' ? 'reserved. Collect your card and pay at reception.' : 'active. Collect your card at reception on your next visit.') : (pay === 'club' ? 'Your court is held. Pay at reception before you play.' : 'See you on court, ' + esc(W.first) + '.')) + '</p>' +
+          '<p class="lead" style="text-align:center">' + (item.kind === 'membership' ? 'Your ' + P.membership[item.tier].name + ' membership is ' + (pay === 'club' ? 'reserved. Collect your card and pay at reception.' : 'active. Collect your card at reception on your next visit.') : (pay === 'club' ? 'Your court is held. Check in and pay at reception before you play. If you have not checked in 15 minutes after your start time, the booking is cancelled and the court is released.' : 'See you on court, ' + esc(W.first) + '.')) + '</p>' +
           '<div class="box summary"><dl>' + lines.map(function(r){ return '<div><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>'; }).join('') + '</dl></div>' +
           (guest ? '<p class="fine" style="text-align:center;margin:0">Show your reference at reception. Booking details are for ' + esc(W.email) + '.</p>' : '') +
           '<div class="actions">' + (guest ? '<a class="btn btn-navy" href="login.html#create">Create an Account</a>' : '<a class="btn btn-navy" href="account.html">' + (item.kind === 'membership' ? 'View My Card' : 'My Bookings') + '</a>') + '<a class="btn btn-line" href="book.html">Book ' + (item.kind === 'membership' ? 'a Court' : 'Another') + '</a></div></div>';
@@ -604,7 +604,7 @@ if(page === 'account'){
       var cUp = coach.filter(isUp), cPast = coach.filter(function(b){ return !isUp(b); }).reverse();
       function hoursTo(b){ return (parseYmd(b.date).getTime() + toMin(b.time) * 60000 - Date.now()) / 3600000; }
       function row(b, canCancel){
-        var d = parseYmd(b.date), pill = b.status === 'cancelled' ? '<span class="pill cx">Cancelled</span>' : b.pay === 'club' ? '<span class="pill club">Pay at club</span>' : b.pay === 'free' ? '<span class="pill free">Member</span>' : '<span class="pill paid">Paid</span>';
+        var d = parseYmd(b.date), pill = b.status === 'cancelled' ? '<span class="pill cx">' + (b.refunded ? 'Cancelled · refunded' : 'Cancelled') + '</span>' : b.status === 'noshow' ? '<span class="pill cx">No-show</span>' : b.status === 'expired' ? '<span class="pill cx">Not completed</span>' : b.pay === 'club' ? (b.paidClub ? '<span class="pill paid">Paid at club</span>' : '<span class="pill club">Pay at club</span>') : b.pay === 'free' ? '<span class="pill free">Member</span>' : '<span class="pill paid">Paid</span>';
         return '<div class="bk ' + esc(b.sport) + '"><div class="d"><small>' + d.toLocaleDateString('en-GB',{weekday:'short'}) + '</small><b>' + d.getDate() + '</b><small>' + d.toLocaleDateString('en-GB',{month:'short'}) + '</small></div>' +
           '<div><h4>' + esc(actLabel(b)) + pill + '</h4><p>' + niceTime(toMin(b.time)) + ' – ' + niceTime(toMin(b.time) + (+b.dur)) + ' · Court ' + b.court + (b.extras && b.extras.length ? ' · + ' + esc(b.extras.map(function(x){ return x.qty + ' × ' + x.short; }).join(', ')) : '') + ' · ' + (b.price ? fmt(b.price) : 'Free') + ' · Ref ' + esc(b.id) + '</p></div>' +
           (canCancel ? (hoursTo(b) >= 24 ? '<div data-cx="' + esc(b.id) + '"><button class="txt-btn" type="button" data-ask>Cancel</button></div>' : '<div class="late-note">Within 24 hours.<br><a href="https://wa.me/971525392908" target="_blank" rel="noopener">Message reception</a></div>') : '<div></div>') + '</div>';
@@ -613,24 +613,50 @@ if(page === 'account'){
       $('#coachList').innerHTML = (cUp.length || cPast.length) ? cUp.map(function(b){ return row(b, true); }).join('') + cPast.map(function(b){ return row(b, false); }).join('') : '<p class="empty">No coaching sessions yet. <a class="link" href="coaching.html" style="margin-left:8px">Explore coaching <span aria-hidden="true">→</span></a></p>';
       $('#past').innerHTML = past.length ? past.map(function(b){ return row(b, false); }).join('') : '<p class="empty">Your past and cancelled games will show here.</p>';
       // payment history: bookings with a charge + membership payments
-      var pays = list.filter(function(b){ return b.price > 0; }).map(function(b){ return {created:b.created || 0, desc:actLabel(b) + ' · ' + niceDate(b.date, {day:'numeric', month:'short'}), pay:b.pay, amount:b.price, status:b.status, id:b.id}; })
+      var pays = list.filter(function(b){ return b.price > 0 && b.status !== 'expired'; }).map(function(b){ return {created:b.created || 0, desc:actLabel(b) + ' · ' + niceDate(b.date, {day:'numeric', month:'short'}), pay:b.pay, amount:b.price, status:b.status, id:b.id, refunded:b.refunded, paidClub:b.paidClub}; })
         .concat(get('payments', []).filter(function(p){ return p.owner === me; }))
         .sort(function(a, b){ return b.created - a.created; });
-      var method = {apple:'Apple Pay', card:'Card', club:'At the club'};
+      var method = {apple:'Apple Pay', card:'Card', online:'Card / Apple Pay', club:'At the club', free:'Membership'};
       $('#payments').innerHTML = pays.length ? '<div class="table-wrap"><table class="ptable paytable"><caption class="sr">Payment history</caption><thead><tr><th scope="col">Date</th><th scope="col">Item</th><th scope="col">Method</th><th scope="col">Status</th><th scope="col">Amount</th></tr></thead><tbody>' +
         pays.map(function(p){
-          var st = p.status === 'cancelled' ? (p.pay === 'club' ? '<span class="pill cx">Cancelled</span>' : '<span class="pill cx">Refund due</span>') : p.pay === 'club' ? '<span class="pill club">Due at club</span>' : '<span class="pill paid">Paid</span>';
+          var st = p.status === 'cancelled' ? (p.pay === 'club' ? '<span class="pill cx">Cancelled</span>' : p.refunded ? '<span class="pill cx">Refunded</span>' : LIVE ? '<span class="pill cx">Cancelled · no refund</span>' : '<span class="pill cx">Refund due</span>') : p.status === 'noshow' ? '<span class="pill cx">No-show</span>' : p.pay === 'club' ? (p.paidClub ? '<span class="pill paid">Paid</span>' : '<span class="pill club">Due at club</span>') : '<span class="pill paid">Paid</span>';
           return '<tr><td>' + (p.created ? new Date(p.created).toLocaleDateString('en-GB', {day:'numeric', month:'short', year:'numeric'}) : '–') + '</td><td>' + esc(p.desc) + '<small>Ref ' + esc(p.id) + '</small></td><td>' + (method[p.pay] || '–') + '</td><td>' + st + '</td><td class="amt">' + fmt(p.amount) + '</td></tr>';
         }).join('') + '</tbody></table></div>' : '<p class="empty">Payments for bookings, coaching and membership will show here.</p>';
     }
     renderBk();
+    // live: pull the latest status of this browser's bookings from the booking system
+    if(LIVE){
+      var refs = bookings().filter(function(b){ return b.owner === user.email.toLowerCase() && /^EP-/.test(b.id); }).map(function(b){ return b.id; });
+      if(refs.length) apiGet({action:'status', refs:refs.slice(-60).join(',')}).then(function(r){
+        if(!r.ok) return;
+        var map = {}; r.bookings.forEach(function(x){ map[x.ref] = x; });
+        var list = bookings(), changed = false;
+        list.forEach(function(b){
+          var x = map[b.id]; if(!x) return;
+          var st = {'Confirmed':'confirmed', 'Pending payment':'confirmed', 'Cancelled':'cancelled', 'No-show':'noshow', 'Expired':'expired', 'Released (unpaid)':'noshow'}[x.status] || b.status;
+          var refunded = x.payment === 'Refunded', paidClub = x.payment === 'Paid at club';
+          if(st !== b.status || refunded !== !!b.refunded || paidClub !== !!b.paidClub){ b.status = st; b.refunded = refunded; b.paidClub = paidClub; changed = true; }
+        });
+        if(changed){ set('bookings', list); renderBk(); }
+      }, function(){});
+    }
     function onCancel(e){
       var w = e.target.closest('[data-cx]'); if(!w) return;
       if(e.target.closest('[data-ask]')){ var bx = bookings().filter(function(b){ return b.id === w.getAttribute('data-cx'); })[0], refundTxt = bx && bx.price > 0 && bx.pay !== 'club' ? 'You will be refunded ' + fmt(bx.price) + '. ' : '';
         w.innerHTML = '<span class="confirm-inline">' + refundTxt + 'Cancel this booking? <button class="txt-btn" type="button" data-yes>Yes, cancel</button><button class="txt-btn" type="button" data-no style="color:var(--body)">Keep it</button></span>'; return; }
       if(e.target.closest('[data-no]')){ renderBk(); return; }
       if(e.target.closest('[data-yes]')){
-        var list = bookings(); list.forEach(function(b){ if(b.id === w.getAttribute('data-cx')) b.status = 'cancelled'; }); set('bookings', list); renderBk(); toast(bx && bx.price > 0 && bx.pay !== 'club' ? 'Booking cancelled. Refund on its way.' : 'Booking cancelled');
+        var cid = w.getAttribute('data-cx'), bx2 = bookings().filter(function(b){ return b.id === cid; })[0];
+        var mark = function(refunded){ var list = bookings(); list.forEach(function(b){ if(b.id === cid){ b.status = 'cancelled'; b.refunded = !!refunded; } }); set('bookings', list); renderBk(); };
+        if(LIVE && bx2){
+          w.innerHTML = '<span class="confirm-inline">Cancelling…</span>';
+          apiPost({action:'cancel', ref:cid, email:(bx2.owner || user.email)}).then(function(r){
+            if(r.ok){ mark(r.refunded > 0); toast(r.refunded > 0 ? 'Booking cancelled. ' + fmt(r.refunded) + ' refunded to your card.' : 'Booking cancelled'); return; }
+            renderBk(); toast(r.error === 'late' ? 'Less than 24 hours to go. Please message reception on WhatsApp.' : (r.error || NET_ERR));
+          }, function(){ renderBk(); toast(NET_ERR); });
+          return;
+        }
+        mark(bx2 && bx2.price > 0 && bx2.pay !== 'club'); toast(bx2 && bx2.price > 0 && bx2.pay !== 'club' ? 'Booking cancelled. Refund on its way.' : 'Booking cancelled');
       }
     }
     $('#upcoming').addEventListener('click', onCancel);

@@ -206,11 +206,16 @@ function openBooking(ref){
     row('Equipment', b.equipment || 'None') + row('Amount', aed(b.amount)) + row('Payment', payLabel(b)) + row('Status', b.status) +
     row('WhatsApp', b.whatsapp || '–') + row('Email', b.email || '–') + (b.notes ? row('Notes', b.notes) : '') + '</dl>' +
     '<div class="ap-actions">' +
-      (b.payment === 'Pay at club' && STATUS_LIVE[b.status] ? '<button class="btn btn-olive" type="button" data-act="paid">Mark paid at club</button>' : '') +
-      (STATUS_LIVE[b.status] ? '<button class="btn btn-line" type="button" data-act="noshow">No-show</button><button class="btn btn-line danger" type="button" data-act="cancel">Cancel booking</button>' : '<button class="btn btn-line" type="button" data-act="restore">Restore booking</button>') +
+      (b.payment === 'Pay at club' && STATUS_LIVE[b.status] ? '<button class="btn btn-olive" type="button" data-act="paid">Arrived · mark paid at club</button>' : '') +
+      (STATUS_LIVE[b.status] && b.payment === 'Card / Apple Pay (paid)' && b.status === 'Confirmed' ? '<button class="btn btn-line" type="button" data-act="noshow">No-show</button><button class="btn btn-line danger" type="button" data-act="refund">Cancel &amp; refund ' + esc(aed(b.amount)) + '</button><button class="btn btn-line" type="button" data-act="cancel">Cancel, no refund</button>' :
+       STATUS_LIVE[b.status] ? '<button class="btn btn-line" type="button" data-act="noshow">No-show</button><button class="btn btn-line danger" type="button" data-act="cancel">Cancel booking</button>' :
+       b.status === 'No-show' && b.payment === 'Pay at club' ? '<button class="btn btn-olive" type="button" data-act="arrived">They came · mark paid at club</button>' :
+       b.payment === 'Refunded' ? '' : '<button class="btn btn-line" type="button" data-act="restore">Restore booking</button>') +
       (wa ? '<a class="btn btn-line" href="https://wa.me/' + wa + '" target="_blank" rel="noopener">WhatsApp customer</a>' : '') +
     '</div><p class="ap-confirm" id="drawerConfirm" hidden></p>' +
-    (b.payment === 'Card / Apple Pay (paid)' ? '<p class="ap-fine">Paid by card. If you cancel more than 24 hours ahead, refund it in Stripe → Payments, then set Payment to Refunded in the sheet.</p>' : '');
+    (b.payment === 'Card / Apple Pay (paid)' && STATUS_LIVE[b.status] ? '<p class="ap-fine">Paid by card. <b>Cancel &amp; refund</b> sends the full amount back to the customer\'s card through Stripe straight away (5 to 10 working days to arrive). Use <b>Cancel, no refund</b> for late cancellations under 24 hours.</p>' :
+     b.payment === 'Pay at club' && STATUS_LIVE[b.status] ? '<p class="ap-fine">Not paid yet. If nobody marks it paid within 15 minutes of the start time, it becomes a No-show automatically and the court is freed.</p>' :
+     b.payment === 'Refunded' ? '<p class="ap-fine">Refunded to the customer\'s card.</p>' : '');
   $('#drawer').hidden = false; $('#drawer').setAttribute('data-ref', ref);
   $('#drawerClose').focus();
 }
@@ -219,11 +224,21 @@ function drawerAction(act){
   var ref = $('#drawer').getAttribute('data-ref'), conf = $('#drawerConfirm');
   if(act === 'cancel' && conf.hidden){ conf.hidden = false; conf.innerHTML = 'Cancel this booking and free the court? <button class="txt-btn" type="button" data-act="cancel-yes">Yes, cancel</button> <button class="txt-btn" type="button" data-act="cancel-no">Keep it</button>'; return; }
   if(act === 'cancel-no'){ conf.hidden = true; return; }
-  var fields = { paid:{Payment:'Paid at club'}, noshow:{Status:'No-show'}, 'cancel-yes':{Status:'Cancelled'}, restore:{Status:'Confirmed'} }[act];
+  if(act === 'refund' && conf.getAttribute('data-ask') !== 'refund'){ conf.hidden = false; conf.setAttribute('data-ask', 'refund'); conf.innerHTML = 'Cancel and refund the full amount to the customer\'s card? <button class="txt-btn" type="button" data-act="refund">Yes, refund</button> <button class="txt-btn" type="button" data-act="cancel-no">Keep it</button>'; return; }
+  if(act === 'refund'){
+    conf.removeAttribute('data-ask'); conf.textContent = 'Refunding…';
+    var go = LIVE ? api('refund', {ref:ref}) : update(ref, {Status:'Cancelled', Payment:'Refunded'});
+    go.then(function(j){
+      if(!j.ok){ conf.hidden = false; conf.textContent = j.error || 'Could not refund.'; return; }
+      $('#drawer').hidden = true; toast('Refunded ' + (j.refunded ? aed(j.refunded) : '') + ' · booking cancelled'); refresh();
+    }, function(e){ if(e.message !== 'auth'){ conf.hidden = false; conf.textContent = 'Could not reach the booking system.'; } });
+    return;
+  }
+  var fields = { paid:{Payment:'Paid at club'}, arrived:{Status:'Confirmed', Payment:'Paid at club'}, noshow:{Status:'No-show'}, 'cancel-yes':{Status:'Cancelled'}, restore:{Status:'Confirmed'} }[act];
   if(!fields) return;
   update(ref, fields).then(function(j){
     if(!j.ok){ conf.hidden = false; conf.textContent = j.error || 'Could not update.'; return; }
-    $('#drawer').hidden = true; toast({paid:'Marked as paid', noshow:'Marked as no-show', 'cancel-yes':'Booking cancelled', restore:'Booking restored'}[act]); refresh();
+    $('#drawer').hidden = true; toast({paid:'Marked as paid', arrived:'Marked as arrived and paid', noshow:'Marked as no-show', 'cancel-yes':'Booking cancelled', restore:'Booking restored'}[act]); refresh();
   }, function(e){ if(e.message !== 'auth'){ conf.hidden = false; conf.textContent = 'Could not reach the booking system.'; } });
 }
 
